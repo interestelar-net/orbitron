@@ -12,7 +12,7 @@ Orbitron is a minimal Discord bot written with `discord.py`. It loads the bot to
 - Python 3.11 or newer
 - Dependencies listed in `requirements.txt`
 
-Installation and usage
+## Installation and usage
 1. Create and activate a virtual environment (recommended):
 
 PowerShell (Windows):
@@ -51,13 +51,13 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-Project structure (relevant files)
+## Project structure (relevant files)
 - `src/main.py` — entry point
 - `src/extensions/` — folder for bot extensions/handlers
 - `.env.example` — example environment variables
 
-Contributing
+## Contributing
 - Open an issue or submit a pull request describing the proposed changes.
 
-License
+## License
 - See the `LICENSE` file in the repository.

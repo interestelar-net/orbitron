@@ -6,7 +6,10 @@ from os import getenv
 
 load_dotenv(".env")  # Load environment variables from .env file
 
-bot = Bot(command_prefix="!", intents=Intents.default())
+intents = Intents.default()
+intents.message_content = True
+
+bot = Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready() -> None:
