@@ -1,0 +1,64 @@
+name: Bug report
+description: Create a report to help us improve. Please include steps to reproduce and environment details.
+title: "[BUG] "
+labels: [bug]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Be as specific as possible and include steps to reproduce, expected behaviour and actual behaviour.
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide a minimal set of steps to reproduce the issue.
+      placeholder: |
+        1. Do this
+        2. Do that
+        3. Observe the bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen.
+      placeholder: The command should ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual behavior
+      description: What actually happened instead.
+      placeholder: The bot responded with ...
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, library versions (discord.py, etc.) and bot config relevant to reproduce.
+      placeholder: Windows 10, Python 3.11, discord.py 2.x
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is the impact of this bug?
+      options:
+        - Low
+        - Medium
+        - High
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional information
+      description: Logs, stack traces, screenshots or other files that help debugging.
+      placeholder: Paste logs or attach files.
