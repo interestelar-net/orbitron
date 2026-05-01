@@ -23,13 +23,13 @@ body:
     attributes:
       label: Problem statement
       description: What problem does this feature solve?
-      placeholder: Current behaviour and limitations.
+      placeholder: Current behavior and limitations.
 
   - type: textarea
     id: proposal
     attributes:
       label: Proposed solution
-      description: How should the feature work? High level details.
+      description: How should the feature work? High-level details.
       placeholder: Implementation ideas, config options, API changes.
 
   - type: textarea

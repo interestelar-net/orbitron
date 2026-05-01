@@ -21,7 +21,7 @@ Reference the related issue (e.g. #123) or remove if not applicable.
 Describe the tests executed (unit, integration, manual) and steps to reproduce.
 
 ## Checklist
-- [ ] I have read the contribution guidelines.
+- [ ] I have reviewed the requirements in this template.
 - [ ] Code follows the project's style (lint/format).
 - [ ] Unit tests added or updated where applicable.
 - [ ] All CI checks are passing.
