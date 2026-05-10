@@ -7,6 +7,7 @@ Orbitron is a minimal Discord bot written with `discord.py`. It loads the bot to
 **Summary:**
 - Language: Python
 - Main library: `discord.py`
+- ORM/DB layer: `SQLAlchemy` (async)
 
 **Requirements**
 - Python 3.11 or newer
@@ -54,6 +55,7 @@ python src/main.py
 ## Project structure (relevant files)
 - `src/main.py` — entry point
 - `src/extensions/` — folder for bot extensions/handlers
+- `src/services/database.py` — async SQLAlchemy engine/session/base service
 - `.env.example` — example environment variables
 
 ## Contributing
