@@ -55,7 +55,7 @@ python src/main.py
 ## Project structure (relevant files)
 - `src/main.py` — entry point
 - `src/extensions/` — folder for bot extensions/handlers
-- `src/services/database.py` — async SQLAlchemy engine/session/base service
+- `src/services/database/database.py` — async SQLAlchemy engine/session/base service
 - `.env.example` — example environment variables
 
 ## Contributing
