@@ -56,11 +56,11 @@ class DatabaseService:
         if name in self._engines:
             raise ValueError(f"An engine with the name '{name}' already exists.")
 
-        if not engine_kwargs:
-            engine_kwargs = {
-                "echo": False,
-                "pool_pre_ping": True,
-            }
+        default_engine_kwargs = {
+            "echo": False,
+            "pool_pre_ping": True,
+        }
+        engine_kwargs = {**default_engine_kwargs, **engine_kwargs}
 
         engine = create_async_engine(database_url, **engine_kwargs)
         session_maker = async_sessionmaker(engine, expire_on_commit=False)
