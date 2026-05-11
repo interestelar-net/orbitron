@@ -1,3 +1,3 @@
-from .database import Base, DatabaseService
+from .database import BaseModel, DatabaseService
 
-__all__ = ["Base", "DatabaseService"]
+__all__ = ["BaseModel", "DatabaseService"]
