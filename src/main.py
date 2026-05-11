@@ -4,6 +4,8 @@ from discord.ext.commands import Bot
 from logging import getLogger
 from os import getenv
 
+from services import DatabaseService
+
 load_dotenv(".env")  # Load environment variables from .env file
 
 intents = Intents.default()
@@ -21,8 +23,14 @@ async def on_ready() -> None:
 
 if __name__ == "__main__":
     token = getenv("DISCORD_TOKEN")
+    database_url = getenv("DATABASE_URL")
 
     if token is None:
         raise ValueError("DISCORD_TOKEN environment variable is not set.")
+
+    if database_url is None:
+        raise ValueError("DATABASE_URL environment variable is not set.")
+
+    DatabaseService().create_engine("default", database_url)
 
     bot.run(token, root_logger=True)

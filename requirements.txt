@@ -1,5 +1,6 @@
 aiohappyeyeballs==2.6.1
 aiohttp==3.13.5
+aiosqlite==0.21.0
 aiosignal==1.4.0
 attrs==26.1.0
 discord.py==2.7.1
@@ -9,5 +10,6 @@ idna==3.13
 multidict==6.7.1
 propcache==0.4.1
 python-dotenv==1.2.2
+SQLAlchemy==2.0.44
 typing_extensions==4.15.0
 yarl==1.23.0
