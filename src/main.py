@@ -21,7 +21,7 @@ async def on_ready() -> None:
     _logger = getLogger(__name__)
     _logger.info(f"Logged in as {bot.user} (ID: {bot.user.id})")
 
-    # Add a loading extesnion logic here if you have any extensions to load before checking the database connection and setup:
+    # Add a loading extension logic here if you have any extensions to load before checking the database connection and setup:
 
     if DatabaseService().check_engine_name("default"):
         if await DatabaseService().check_engine_health("default"):
