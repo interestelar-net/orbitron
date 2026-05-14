@@ -2,9 +2,11 @@
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 from threading import Lock
 from typing import Optional
+from logging import getLogger
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
 # Internal imports:
 from .models import BaseModel
@@ -31,6 +33,7 @@ class DatabaseService:
 
         self._engines: dict[str, dict] = {}
         self._initialized = True
+        self._logger = getLogger(__package__)
 
     def __new__(cls, *args, **kwargs):
         """
@@ -46,7 +49,7 @@ class DatabaseService:
     # Private methods:
 
     # Public methods:
-    def create_connection(self, name: str, database_url: str, **engine_kwargs) -> None:
+    def create_engine(self, name: str, database_url: str, **engine_kwargs) -> None:
         """
         Creates an asynchronous engine for connecting to the database.
 
@@ -70,7 +73,7 @@ class DatabaseService:
         session_maker = async_sessionmaker(engine, expire_on_commit=False)
         self._engines[name] = {"engine": engine, "session_maker": session_maker}
 
-    def get_connection(self, name: str) -> AsyncEngine:
+    def get_engine(self, name: str) -> AsyncEngine:
         """
         Retrieves an asynchronous engine by its name.
 
@@ -102,9 +105,9 @@ class DatabaseService:
         async with self._engines[name]["session_maker"]() as session:
             yield session
 
-    async def setup_connection(self, name: str) -> None:
+    async def setup_engine(self, name: str) -> None:
         """
-        Sets up a connection by creating all tables defined in the BaseModel metadata.
+        Sets up an engine by creating all tables defined in the BaseModel metadata.
 
         :param name: The name of the engine to set up.
         :type name: str
@@ -116,7 +119,7 @@ class DatabaseService:
         async with self._engines[name]["engine"].begin() as connection:
             await connection.run_sync(BaseModel.metadata.create_all)
 
-    def check_connection_name(self, name: str) -> bool:
+    def check_engine_name(self, name: str) -> bool:
         """
         Checks if an engine with the given name exists.
 
@@ -127,13 +130,13 @@ class DatabaseService:
         """
         return name in self._engines
 
-    async def check_connection_health(self, name: str) -> bool:
+    async def check_engine_health(self, name: str) -> bool:
         """
-        Checks the health of a connection by attempting to connect to the database.
+        Checks the health of an engine by attempting to connect to the database.
 
         :param name: The name of the engine to check.
         :type name: str
-        :return: True if the connection is healthy, False otherwise.
+        :return: True if the engine is healthy, False otherwise.
         :rtype: bool
         :raises ValueError: If no engine is found with the given name.
         """
@@ -145,7 +148,8 @@ class DatabaseService:
                 await connection.execute(text("SELECT 1"))
             return True
 
-        except Exception:
+        except SQLAlchemyError as error:
+            self._logger.error(f"Database health check failed for engine '{name}': {error}")
             return False
 
     async def delete_engine(self, name: str) -> None:
