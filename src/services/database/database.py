@@ -1,8 +1,9 @@
 # External imports:
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
-from collections.abc import AsyncGenerator
 from threading import Lock
 from typing import Optional
+from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator
 
 # Internal imports:
 
@@ -80,14 +81,15 @@ class DatabaseService:
 
         return self._engines[name]["engine"]
 
-    async def get_session(self, name: str) -> AsyncGenerator[AsyncSession, None]:
+    @asynccontextmanager
+    async def get_session(self, name: str) -> AsyncIterator[AsyncSession]:
         """
         Retrieves an asynchronous session by the engine's name.
 
         :param name: The name of the engine to retrieve the session from.
         :type name: str
         :return: The asynchronous session associated with the given engine name.
-        :rtype: AsyncSession
+        :rtype: AsyncIterator[AsyncSession]
         """
         if name not in self._engines:
             raise ValueError(f"No engine found with the name '{name}'.")
