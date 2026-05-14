@@ -14,9 +14,9 @@ intents.message_content = True
 bot = Bot(command_prefix="!", intents=intents)
 
 @bot.event
-async def on_connect() -> None:
+async def on_ready() -> None:
     """
-    This function is called when the bot has successfully connected to Discord.
+    This function is called when the bot has successfully connected to Discord and is ready to start receiving events.
     """
     _logger = getLogger(__name__)
     _logger.info(f"Logged in as {bot.user} (ID: {bot.user.id})")
